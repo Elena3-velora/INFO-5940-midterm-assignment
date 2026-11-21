@@ -1,0 +1,7 @@
+# macOS Finder files
+.DS_Store
+
+# Local secrets (API keys); commit only .env.example
+.env
+.env.*
+!.env.example
