@@ -167,3 +167,211 @@ No new contradictions introduced by these changes: checked FR-701 against PR-1.1
 **Context**: INCEPTION - Requirements Analysis — change request applied; re-presenting the approval gate
 
 ---
+
+## Requirements Analysis — Approval Gate Re-Presented
+**Timestamp**: 2026-11-22T00:00:00Z
+**User Input**: "Using AI-DLC, please continue the workflow from the current state in aidlc-docs/aidlc-state.md." (session resumption — no new content; resuming per common/session-continuity.md)
+**AI Response**: "Read aidlc-docs/aidlc-state.md and aidlc-docs/audit.md to resume. Confirmed the last completed action was applying the 5-item change request to requirements.md (Section 15 Revision History present, all 5 changes verified in the document body). The Step 9 approval gate had not yet been re-presented after those changes — re-presented it now per requirements-analysis.md Step 9, omitting the 'Add User Stories' option since User Stories WILL execute per the existing assessment in aidlc-state.md. WAITING for explicit user approval before proceeding to User Stories."
+**Context**: INCEPTION - Requirements Analysis — AWAITING EXPLICIT APPROVAL at the Step 9 gate (re-presented after change request)
+
+---
+
+## Requirements Analysis — Approved
+**Timestamp**: 2026-11-22T00:05:00Z
+**User Input**: "Approve & Continue. We reviewed the revised requirements.md and the §15 Revision History, and all five changes are applied as we intended. Please proceed to User Stories."
+**AI Response**: "Recorded explicit approval. Requirements Analysis stage marked complete in aidlc-docs/aidlc-state.md. Proceeding to User Stories per the existing assessment (EXECUTE)."
+**Context**: INCEPTION - Requirements Analysis — APPROVED. Proceeding to User Stories.
+
+---
+
+## User Stories — Planning (Part 1)
+**Timestamp**: 2026-11-22T00:10:00Z
+**User Input**: N/A (continuing automatically per the approved transition to User Stories)
+**AI Response**: "Loaded inception/user-stories.md and common/question-format-guide.md. Step 1: created aidlc-docs/inception/plans/user-stories-assessment.md confirming EXECUTE (matches 4 of 6 'ALWAYS Execute' high-priority indicators: new user-facing features, multi-persona system, complex business logic from the truthfulness rule's branching scenarios, and cross-team vertical-slice ownership per requirements.md §11). Steps 2-6: created aidlc-docs/inception/plans/story-generation-plan.md with a lettered execution checklist (Steps A-G) and 8 embedded planning questions covering breakdown approach (feature-slice vs. journey vs. persona vs. hybrid), story granularity relative to the 73 FRs, acceptance-criteria format, persona depth beyond requirements.md §3's one-line needs, treatment of the developer-facing foundation unit, error/edge-case scenario handling, story ID scheme, and MoSCoW prioritization. All 8 questions carry 'Other' as the last option with blank-line separation per the question-format-guide. Updated requirements.md line 3 status to 'Approved 2026-11-22'. STOPPING at the Step 13 gate pending user answers."
+**Context**: INCEPTION - User Stories - Planning — AWAITING USER ANSWERS to story-generation-plan.md
+
+---
+
+## User Stories — Planning Answers Received and Validated
+**Timestamp**: 2026-11-22T00:20:00Z
+**User Input**: "We have filled in all 8 [Answer]: tags in story-generation-plan.md. Please validate the answers and continue."
+**AI Response**: "Read story-generation-plan.md. All 8 [Answer]: tags populated. Performed mandatory ambiguity/contradiction analysis per Step 9 of inception/user-stories.md. Q1=D, Q2=B, Q3=A, Q4=X, Q5=C, Q7=C, Q8=B contain no hedge words ('mix of', 'not sure', 'depends'), no contradictions with each other, and each gives explicit decision rules — including the hybrid answers (Q4=X combines B+C with explicit rules; Q6=C explicitly defines which edge cases fold into the main story vs. get a dedicated story). ONE STRUCTURAL GAP FOUND: Q5's 'only' framing enumerates the foundation unit's user-visible stories (FR-901/902, FR-903, FR-904, NFR-104) and NFR-303 is not on that list, but Q6 separately mandates a dedicated story for NFR-303 (LLM refusal/max-tokens) — a failure mode spanning three different feature slices (JD/matching's extraction and matching calls, suggestions/verification's rewrite generation, cover letter's draft generation). Q1's rule that every story belongs to exactly one of six groups means this needs an explicit slice assignment that neither Q5 nor Q6 provides. This is a 'missing generation detail' per Step 9, not an answer-level contradiction, so a single targeted clarification question was created rather than reopening the full question set. Created aidlc-docs/inception/plans/story-generation-clarification-questions.md with 1 question (4 options: Foundation unit, JD/matching slice, duplicated per-slice criteria, Other). STOPPING pending this one answer."
+**Context**: INCEPTION - User Stories - Planning — AWAITING 1 CLARIFICATION ANSWER
+
+---
+
+## User Stories — Clarification Answer Received and Re-Validated
+**Timestamp**: 2026-11-22T00:25:00Z
+**User Input**: "We have filled in the [Answer]: tag in story-generation-clarification-questions.md. Please validate and continue."
+**User's raw answer**: "A — Assign the dedicated NFR-303 story to the Foundation unit (US-FOUNDATION-xx). Every LLM call goes through the one client wrapper (NFR-301), where stop_reason is checked, and the \"could not generate, please retry\" behaviour with nothing partial shown is identical no matter which slice's call failed. We explicitly extend our Question 5 list to include it, because it is user-visible foundation behaviour, which is the rule Q5 was based on. The JD/matching, suggestions/verification, and cover letter stories cross-reference this story instead of repeating it."
+**AI Response**: "Re-validated per Step 5 of question-format-guide.md. The answer resolves the gap cleanly: it extends Q5's foundation-unit list (rather than contradicting its 'only' framing) by applying Q5's own underlying rule ('user-visible foundation behavior'), stays consistent with Q1's one-group-per-story requirement, and specifies that the other three slices cross-reference rather than duplicate — consistent with Q6's 'dedicated story' (singular) framing. No new contradictions introduced. Updated story-generation-plan.md Steps A and B to [x], recording the resolution inline. Proceeding to Step C: presenting the full plan for approval."
+**Context**: INCEPTION - User Stories - Planning — all ambiguities resolved; presenting plan for approval (Step 12/13 gate)
+
+---
+
+## User Stories — Plan Approved; Generation (Part 2) Executed
+**Timestamp**: 2026-11-22T00:35:00Z
+**User Input**: "Approve & Continue. We reviewed story-generation-plan.md and it reflects our answers. Please generate stories.md and personas.md."
+**AI Response**: "Recorded plan approval; marked story-generation-plan.md Step C [x]. Read vision.md directly (not just requirements.md's citations of it) so persona narrative and pain-point details trace to a primary source. Executed Steps D-F: created aidlc-docs/inception/user-stories/personas.md (3 full persona profiles per Q4=X — narrative, goals, pain points, one labeled-fictional quote each, every claim cited to vision.md or requirements.md — plus the Q1/Q4 persona-to-story mapping table) and aidlc-docs/inception/user-stories/stories.md (26 stories across the Foundation unit and 5 feature slices per Q1=D, each with Given/When/Then acceptance criteria per Q3=A, FR/NFR cross-references per Q2, slice-prefixed IDs per Q7=C, and MoSCoW labels per Q8=B). Applied the resolved NFR-303 placement (US-FOUNDATION-04, cross-referenced by US-MATCH-01/US-SUGGEST-01/US-COVER-01 rather than duplicated) and the FR-904/US-FOUNDATION-02 placement from Q5=C. Flagged one priority gap for explicit confirmation, mirroring how assumption A-1 was handled in Requirements Analysis: US-FOUNDATION-04 (NFR-303) is labeled Must even though Q8's enumerated Must list didn't name NFR-3xx explicitly, because it fits Q8's own Must definition (necessary for one complete working flow). Self-checked traceability (Step F): every FR-1xx-FR-9xx group and the cited NFR groups are covered by a story or explicitly named as internal-only in stories.md's 'How to Read This Document' section (FR-101, FR-102, FR-103, FR-115, and the raw parsing step of FR-120, plus the data models/session store/LLM client wrapper/API contract). Marked story-generation-plan.md Steps D, E (all sub-steps), and F as [x]. Content validated per common/content-validation.md: plain Markdown and tables throughout, no Mermaid, no ASCII diagrams, no special-character escaping required."
+**Context**: INCEPTION - User Stories - Generation (Part 2) complete — presenting completion message for approval (Step 20/21 gate)
+
+---
+
+## User Stories — Change Request from Story Review
+**Timestamp**: 2026-11-22T00:45:00Z
+**User Input** (complete raw input, verbatim): "Request Changes. The stories are strong and we confirm US-FOUNDATION-04 as Must. Please make these changes:
+
+1. personas.md: Keep the three personas broad. They must represent all students seeking internships and all new graduates in the North American job market, across any major and role, so do not assign a specific major, degree, or target job. Give each persona a first name and one specific, realistic scenario (the kind of resume line and the kind of JD requirement they struggle with), drawn from examples already in vision.md and requirements.md: the internship student whose JD asks for SQL but who only used SQL in one database course (FR-221); the new graduate applying to many different roles in one week, each JD asking for different things; the international student whose resume says \"took part in a project\" and who worries a tool will turn it into \"led a project\". Add a note at the top of personas.md that each persona is a fictional archetype, each scenario is one representative example, and the product serves users of any major. Keep every goal and pain point traceable to vision.md or requirements.md.
+
+2. US-SUGGEST-03, criterion 3 depends on US-SUGGEST-05, but US-SUGGEST-03 is Must and US-SUGGEST-05 is Should. Move criterion 3 into US-SUGGEST-05, so that cutting a Should story never breaks a Must story.
+
+3. found must have evidence. FR-222 currently only requires evidence_ids to be empty for not_found. A requirement labeled found with no evidence would break PR-1.5. Please update requirements.md FR-222 so that found requires at least one evidence ID, add this invariant to the property-based test in FR-223, record the change in the §15 Revision History, and state the same rule in US-MATCH-03 criterion 3.
+
+4. Product Rule 2 (natural writing) has no acceptance criteria. Add one criterion to US-SUGGEST-01 and one to US-COVER-01: output avoids empty phrases and repeated JD keyword stuffing, and keeps the user's real seniority level (PR-2.1 to PR-2.3), checked during manual review in the truthfulness eval set (NFR-505).
+
+5. US-FOUNDATION-03, criterion 1: replace \"the relevant screen\" with the resume upload screen, so the user sees the notice before submitting their resume.
+
+6. US-MATCH-01: add a criterion that pasted JD text over 15,000 characters is rejected (FR-113).
+
+Everything else in stories.md is approved as written."
+
+**AI Response**: "Confirmed US-FOUNDATION-04 Must priority — no longer flagged as pending. Applied all 6 changes.
+
+CHANGE 1 (personas.md): Read vision.md directly again to source the three scenarios precisely. Rewrote personas.md: added a top note stating each persona is a fictional archetype representing a broad category (any major, any role), each scenario is one representative example, and reaffirmed every goal/pain point traces to vision.md or requirements.md. Gave each persona a first name (Alex, Jordan, Sam) and the exact scenario specified: Alex — JD asks for SQL, resume only shows one database course (ties to FR-221 needs_confirmation); Jordan — three different roles applied to in one week, each JD emphasizing something different (ties to vision.md §2's 'tailor to every job... takes a lot of time'); Sam — resume says 'took part in a project', worried a tool turns it into 'led a project' (the literal example in vision.md §6 Rule 1). Did not add any major, degree, or job-title specifics. Persona-to-story mapping table unchanged (same stories, names added as prefixes). Noted a stray identical copy exists at /Users/janniejane/Desktop/personas.md outside the repo — left untouched since it is not the canonical artifact; edited only aidlc-docs/inception/user-stories/personas.md.
+
+CHANGE 2 (US-SUGGEST-03 → US-SUGGEST-05): Removed criterion 3 (FR-432) from US-SUGGEST-03, leaving 2 ACs and a Covers field of FR-430/FR-431 plus a note pointing to its new home. Added it as new criterion 4 to US-SUGGEST-05, merging what were separately FR-331 and FR-332 into one combined criterion 2 to keep US-SUGGEST-05 within the 4-AC cap (Q3/Q2 of story-generation-plan.md) after the addition — no content lost, FR-331 and FR-332 both still explicitly named. Updated US-SUGGEST-05's Covers field to add FR-432.
+
+CHANGE 3 (FR-222/FR-223 + US-MATCH-03): Updated requirements.md FR-222 so found requires at least one evidence_ids entry (previously only not_found had a hard requirement). Updated FR-223 to add the new property-based invariant alongside the existing one. Updated the §7.1 data-model table's found row to match. Updated the §8.2 PBT-03 row to name the new invariant. Added a new dated Revision History subsection (distinct from the 2026-11-22 Requirements Analysis change request) explaining why: found is the checklist's strongest claim, so it should not be allowed weaker evidence support than needs_confirmation. Updated US-MATCH-03 criterion 3 in stories.md to state found always shows at least one evidence ID, and added a note citing the requirements.md change.
+
+CHANGE 4 (PR-2 criteria): Added criterion 4 to US-SUGGEST-01 and criterion 3 to US-COVER-01, both citing PR-2.1-PR-2.3 and NFR-505, worded identically per the user's specification. Updated both stories' Covers fields.
+
+CHANGE 5 (US-FOUNDATION-03): Replaced 'the relevant screen' with 'the resume upload screen' in criterion 1, and added '— before I submit it' to make the ordering explicit.
+
+CHANGE 6 (US-MATCH-01): Added criterion 3 (FR-113, JD text over 15,000 characters rejected) and added FR-113 to the Covers field.
+
+Re-checked AC counts after all edits: US-SUGGEST-03 (2), US-SUGGEST-05 (4), US-SUGGEST-01 (4), US-COVER-01 (3), US-FOUNDATION-03 (3, unchanged), US-MATCH-01 (3), US-MATCH-03 (3) — all within the 2-4 cap. Story Count Summary table in stories.md unchanged (no stories added or removed, MoSCoW labels unchanged). Content re-validated per common/content-validation.md: plain Markdown and tables only, no Mermaid, no ASCII diagrams."
+**Context**: INCEPTION - User Stories — change request applied; re-presenting the approval gate
+
+---
+
+## User Stories — Approved
+**Timestamp**: 2026-11-22T00:50:00Z
+**User Input**: "Approve & Continue. We reviewed the updated personas.md, stories.md, and requirements.md (§5.2, §7.1, §8.2, §15), and all six changes are applied as we intended. The Desktop copy of personas.md was only for team review and is not part of the project. Please proceed to Workflow Planning."
+**AI Response**: "Recorded explicit approval. Noted the Desktop copy of personas.md is team-review-only, not a project artifact — no action needed. Marked User Stories stage complete in aidlc-docs/aidlc-state.md. Proceeding to Workflow Planning."
+**Context**: INCEPTION - User Stories — APPROVED. Proceeding to Workflow Planning.
+
+---
+
+## Workflow Planning — Execution Plan Created
+**Timestamp**: 2026-11-22T00:55:00Z
+**User Input**: N/A (continuing automatically per the approved transition to Workflow Planning)
+**AI Response**: "Loaded inception/workflow-planning.md and common/content-validation.md. Loaded prior context: requirements.md, stories.md, personas.md. Performed Step 2 impact/risk analysis (greenfield, so brownfield-only sub-steps 2.1/2.3/Step 5 skipped): user-facing/structural/data-model/API/NFR impact all Yes; risk level Medium (correctness-critical truthfulness rule, 3-developer parallel vertical slices, one flagged cross-slice dependency FR-330; offset by no production deployment and easy rollback as a greenfield project). Step 3 phase determination: Application Design EXECUTE (requirements.md §13 explicitly defers component boundaries/service signatures/endpoint refinement here); Units Generation EXECUTE (§11 already calls for a foundation unit + 5 feature slices and defers the dependency map here); for the per-unit Construction loop: Functional Design EXECUTE (new data models and complex business logic in every unit), NFR Requirements EXECUTE (clear performance/security/testability requirements exist per §6), NFR Design EXECUTE (follows from NFR Requirements), Infrastructure Design SKIP (no cloud resources or deployment architecture — 127.0.0.1-only, no persistent store, cloud deployment explicitly out of scope per NFR-701), Code Generation and Build and Test EXECUTE (always). Step 6: generated a Mermaid workflow flowchart plus the mandatory text alternative per content-validation.md (validated node IDs alphanumeric/underscore-only, no unescaped special characters in labels, syntax matches the provided template pattern). Step 7: created aidlc-docs/inception/plans/execution-plan.md with the detailed analysis, both visualizations, phase-by-phase rationale, the unit build sequence from requirements.md §11 (foundation unit first, then 5 slices in parallel, flagging the FR-330 cross-slice dependency for Units Generation to resolve), timeline, and success criteria/quality gates. Step 8: updated aidlc-docs/aidlc-state.md with the per-phase EXECUTE/SKIP recommendations. STOPPING at the Step 9 gate pending user approval."
+**Context**: INCEPTION - Workflow Planning — AWAITING EXPLICIT APPROVAL at the Step 9 gate
+
+---
+
+## Workflow Planning — Change Request (Course Deadlines and Milestone Boundary)
+**Timestamp**: 2026-11-22T01:00:00Z
+**User Input** (complete raw input, verbatim): "Request Changes. The stage selection is correct: Application Design and Units Generation must run, and skipping Infrastructure Design is right for a local-only app. Please make two changes to execution-plan.md:
+
+1. Replace \"Not time-boxed\" with our real course deadlines: the Inception phase (through Units Generation) is due on November 24, 2026, and Construction plus the final project is due on December 16, 2026. Units Generation should size the units so that three developers can build them in about three weeks.
+
+2. State explicitly that for the mid-semester milestone the workflow stops after Units Generation is approved. Construction starts later, in the final project, and must not begin automatically after Units Generation.
+
+Everything else in the plan is approved."
+
+**AI Response**: "Confirmed stage selection (Application Design EXECUTE, Units Generation EXECUTE, Infrastructure Design SKIP) requires no change. Applied both edits to execution-plan.md: (1) replaced the 'Not time-boxed' Estimated Timeline with a new 'Course Deadlines' table (mid-semester milestone Nov 24, 2026 = Inception through Units Generation; final project Dec 16, 2026 = Construction phase), and added a sizing constraint note directly after the Unit Build Sequence section stating the five feature slices must be sized for three developers to each build their slice in about three weeks, the gap between Construction starting and the final deadline. (2) Added a new 'Milestone Boundary' section stating this workflow run stops after Units Generation is approved, that Construction and the final project happen later in a separate, deliberately-started session, and that the Construction-phase rows in 'Phases to Execute' remain documented for completeness but are not entered in this session. Propagated the same boundary into aidlc-docs/aidlc-state.md as a new 'Course Deadlines and Milestone Boundary' section, marked CRITICAL, so a future session resuming from state will not auto-continue into Construction after Units Generation is approved."
+**Context**: INCEPTION - Workflow Planning — change request applied; re-presenting the approval gate
+
+---
+
+## Workflow Planning — Approved
+**Timestamp**: 2026-11-22T01:05:00Z
+**User Input**: "Approve & Continue. Both changes are applied as we intended, and adding the milestone boundary to aidlc-state.md is helpful. Infrastructure Design stays skipped. Please proceed to Application Design."
+**AI Response**: "Recorded explicit approval. Marked Workflow Planning stage complete in aidlc-docs/aidlc-state.md. Proceeding to Application Design."
+**Context**: INCEPTION - Workflow Planning — APPROVED. Proceeding to Application Design.
+
+---
+
+## Application Design — Plan Created
+**Timestamp**: 2026-11-22T01:10:00Z
+**User Input**: N/A (continuing automatically per the approved transition to Application Design)
+**AI Response**: "Loaded inception/application-design.md. Step 1: re-read requirements.md, stories.md, and technical-environment.md directly (not from memory) to scope genuinely open design decisions against what technical-environment.md already fixes (directory layout, endpoint sketch, core Pydantic models, example code patterns showing function-based services and domain-exception-to-HTTP-error translation). Steps 2-5: created aidlc-docs/inception/plans/application-design-plan.md with a lettered execution checklist (Steps A-J) and 6 embedded questions covering all 5 mandated categories: Component Identification (Q1 module granularity per feature slice, Q2 whether app/verification/ is a shared cross-slice package now that FR-222/FR-223's found-evidence invariant exists alongside verify_suggestion and the reorder permutation check), Component Dependencies (Q2, Q3 cross-slice coupling rule given 3 developers building 5 slices in parallel), Service Layer Design (Q4 where verification is invoked from, given PR-1.6 and NFR-602), Component Methods (Q5 export module granularity for DOCX/PDF), and Design Patterns (Q6 where FR-903/904 staleness tracking lives). Deliberately did not re-ask anything already settled in technical-environment.md (e.g., async function-based services, route-handler-catches-domain-exception pattern). All 6 questions carry 'Other' as the last option with blank-line separation per the question-format-guide. STOPPING at the Step 7 gate pending user answers."
+**Context**: INCEPTION - Application Design — AWAITING USER ANSWERS to application-design-plan.md
+
+---
+
+## Application Design — Answers Validated and Artifacts Generated
+**Timestamp**: 2026-11-22T01:15:00Z
+**User Input**: "We have filled in all 6 [Answer]: tags in application-design-plan.md. Please validate and continue."
+**AI Response**: "Read application-design-plan.md. All 6 [Answer]: tags populated. Analyzed per Step 8 of inception/application-design.md: all 6 answers are specific, each with explicit decision rules (including the 'X (with additions)' hybrid answers), and mutually reinforce each other — Q3's 'anything two slices both need goes to the Foundation unit' principle is reapplied consistently in Q5 (export's content assembly) and Q6 (staleness flags). No hedge words, no contradictions. Noted that Q3's answer effectively resolves the FR-330 cross-slice dependency requirements.md §11 flagged as needing an explicit owner during Units Generation — moving confirmed-fact creation into the Foundation unit is a resolution of that deferred question, not a contradiction of it. Application-design.md's own process has no separate plan-approval gate (unlike user-stories.md's Part 1/Part 2 split), so proceeded directly to Step 10 generation. Created all 5 mandatory artifacts in aidlc-docs/inception/application-design/: components.md (components grouped by the 6 units of work, applying the Q3 'shared things go to Foundation' rule by extension to style/writing-sample context, not just the two examples the plan named explicitly — flagged transparently in the doc rather than silently assumed), component-methods.md (method signatures per component, explicitly deferring business-rule detail to Functional Design), services.md (the orchestration pattern used uniformly by every slice, plus the error-handling convention), component-dependency.md (dependency matrix, communication patterns, and a Mermaid data-flow diagram with the mandatory text alternative per content-validation.md — validated node IDs alphanumeric-only and avoided slashes/ampersands in labels), and the consolidated application-design.md (design-decision summary table, traceability check confirming every FR/NFR group and story has a component home). Marked application-design-plan.md Steps D-I as [x]."
+**Context**: INCEPTION - Application Design — artifacts complete, presenting completion message for approval
+
+---
+
+## Application Design — Approved
+**Timestamp**: 2026-11-22T01:20:00Z
+**User Input**: "Approve & Continue. We reviewed the application design artifacts, and they reflect our six answers, including the shared Foundation module for confirmed-fact creation and final-resume-content assembly, which resolves the FR-330 cross-slice dependency. Please proceed to Units Generation."
+**AI Response**: "Recorded explicit approval. Marked Application Design stage complete in aidlc-docs/aidlc-state.md. Proceeding to Units Generation."
+**Context**: INCEPTION - Application Design — APPROVED. Proceeding to Units Generation.
+
+---
+
+## Units Generation — Plan Created (Part 1)
+**Timestamp**: 2026-11-22T01:25:00Z
+**User Input**: N/A (continuing automatically per the approved transition to Units Generation)
+**AI Response**: "Loaded inception/units-generation.md. Step 1-3: created aidlc-docs/inception/plans/unit-of-work-plan.md. Evaluated all 6 mandated question categories: Story Grouping and Business Domain already resolved by requirements.md §11/stories.md (the 5 slices + Foundation are the bounded contexts); Technical Considerations justified N/A (single local monolith, no per-unit deployment/scaling differences per technical-environment.md §4); Code Organization already resolved by technical-environment.md §5's directory layout and application-design/components.md's flat file list, documented directly rather than re-asked. Generated 2 substantive questions for the genuinely open categories: Question 1 (Team Alignment/Story Grouping) on how to distribute the 5 unequally-sized feature slices across Xinyi Wang, Linghui Zhou, and Yunzhu Qiu, explicitly deferred by requirements.md A-5, offering to split Suggestions & Verification along the module boundary Application Design already drew (services/suggestions.py vs services/reordering.py) as one option; Question 2 (Dependencies) on development-time sequencing — whether slice work must wait for Foundation to fully merge, or can start against frozen interface signatures from component-methods.md while Foundation's real implementation continues in parallel, given the 3-week sizing constraint from execution-plan.md. Both questions carry 'Other' as the last option. STOPPING at the Step 6 gate pending user answers."
+**Context**: INCEPTION - Units Generation - Planning (Part 1) — AWAITING USER ANSWERS to unit-of-work-plan.md
+
+---
+
+## Units Generation — Planning Answers Received and Validated
+**Timestamp**: 2026-11-22T01:30:00Z
+**User Input**: "We have filled in both [Answer]: tags in unit-of-work-plan.md. Please validate and continue."
+**User's raw answers**:
+- **Q1**: "X — Keep the 5 slices as they are (no split). Linghui Zhou owns the Foundation unit, Resume Pipeline (2 stories), Cover Letter (3 stories), and final integration; the cover letter builds directly on the Foundation's final-resume-content assembly and style context, so it stays with the Foundation owner. Xinyi Wang owns JD & Matching (5) and Suggestions & Verification (8), the core matching and truthfulness logic. Yunzhu Qiu owns Export (4 stories), a self-contained slice at the end of the wizard that no other slice depends on. Linghui's and Xinyi's workloads are roughly balanced once the Foundation unit and integration are counted. If time runs short, the two Could stories for bullet reordering (US-SUGGEST-06 and US-SUGGEST-07) are cut first."
+- **Q2**: "B (with additions) — Linghui Zhou commits the frozen interfaces first, within the first few days of Construction: the Pydantic models, the SessionState/SessionStore method shapes, the LLMClient interface plus FakeLLMClient, and the services/shared.py and verification/* signatures from component-methods.md. Once committed, any change to a frozen interface must be agreed by all three of us. Slice developers build and test against these interfaces with FakeLLMClient right away, while Linghui finishes the real Foundation implementations in parallel; slices rebase onto them before final integration."
+
+**AI Response**: "Analyzed per Step 7 of units-generation.md. Neither answer contains hedge words, undefined terms, or internal contradictions; both specify concrete decision/governance rules (Q1's Could-story cut order; Q2's interface-change-requires-all-three-agreement rule). Checked Q1 against the README role table already recorded in aidlc-state.md's Team section (Xinyi Wang: Project Planning & Requirements; Linghui Zhou: Application Development; Yunzhu Qiu: AI Development Tools, Collaboration Plan & Documentation) — Q1 assigns Xinyi Wang the heaviest code slice (13 of 22 feature-slice stories) despite her AI-DLC role being Requirements, not Application Development, and leaves Yunzhu Qiu's slice comparatively light (4 stories). Judged this is NOT a blocking ambiguity: the Team section's role labels describe each person's role in the AI-DLC workflow process (who drives requirements input, who owns documentation/tooling), not a statement about coding skill or capacity, and the user is the authority on their own team's actual coding strengths — manufacturing a clarification question here would be second-guessing a specific, deliberate, well-reasoned human decision rather than resolving a genuine ambiguity. Will record the workload distribution and the stated mitigation (Could-stories cut first) factually in unit-of-work.md rather than raising it as a blocking question. Checked Q1 against Q2 — consistent (Linghui's interface-freeze-then-parallel-build timeline under Q2 applies cleanly to Q1's ownership split). Marked unit-of-work-plan.md Steps A and B [x]. Proceeding to Step 9: requesting approval of the plan itself before generation."
+**Context**: INCEPTION - Units Generation - Planning (Part 1) — answers validated, no blocking ambiguity; requesting plan approval (Step 9 gate)
+
+---
+
+## Units Generation — Plan Approved (Part 1 Complete)
+**Timestamp**: 2026-11-22T01:35:00Z
+**User Input**: "Yes, please proceed to generation. The workload asymmetry is intentional and agreed by the team. The roles in README.md and aidlc-state.md describe our responsibilities for the mid-semester documents, not our coding capacity; all three of us write code in Construction, and Xinyi Wang has agreed to own JD & Matching and Suggestions & Verification. Our mitigation stands: the two Could stories for bullet reordering (US-SUGGEST-06 and US-SUGGEST-07) are cut first if time runs short."
+**AI Response**: "Recorded explicit confirmation that the workload asymmetry is intentional and team-agreed, and that the Team-section role labels describe mid-semester documentation responsibilities, not Construction coding assignments. Marked unit-of-work-plan.md Step C [x]. Proceeding to Part 2 Generation."
+**Context**: INCEPTION - Units Generation - Planning (Part 1) COMPLETE, approved. Proceeding to Part 2 (Generation).
+
+---
+
+## Units Generation — Artifacts Generated (Part 2 Complete)
+**Timestamp**: 2026-11-22T01:40:00Z
+**User Input**: N/A (executing the approved unit-of-work-plan.md)
+**AI Response**: "Executed Steps D-G of the approved plan. Created unit-of-work.md (6 units: Foundation owned by Linghui Zhou built first with the interface-freeze build sequencing from Question 2; JD & Matching and Suggestions & Verification both owned by Xinyi Wang; Cover Letter and Resume Pipeline owned by Linghui Zhou; Export owned by Yunzhu Qiu — each with responsibilities, stories covered, and a definition of done, including Unit 3's MoSCoW-tiered done-definition reflecting the team's agreed Could-story cut-first mitigation; a Workload Summary table recording the intentional, team-confirmed asymmetry; and the Code Organization Strategy, already resolved by technical-environment.md and components.md, documented directly). Created unit-of-work-dependency.md (unit-level dependency matrix aggregated from component-dependency.md, confirming no feature unit depends on another feature unit's code — the FR-330 relationship resolves through Foundation, not a direct edge; build sequencing; a Mermaid dependency diagram with text alternative per content-validation.md, validated node IDs alphanumeric-only with no special characters in labels). Created unit-of-work-story-map.md (all 26 stories mapped to their one unit, with a Completeness Check table confirming 26/26 assigned with no duplicates). Marked unit-of-work-plan.md Steps D-G as [x]."
+**Context**: INCEPTION - Units Generation — artifacts complete, presenting completion message for approval. Per execution-plan.md's Milestone Boundary, the completion message will note that this workflow stops here pending approval — it will NOT state Construction as the next stage.
+
+---
+
+## Units Generation — Change Request (Two Corrections)
+**Timestamp**: 2026-11-22T01:45:00Z
+**User Input** (complete raw input, verbatim): "Request Changes. The units and the story map are correct and match our answers. Two small fixes in unit-of-work.md:
+
+1. Unit 2's responsibilities say app/api/facts.py is a \"shared endpoint with Unit 4 per the FR-330 resolution\", but Unit 4 is Cover Letter. The endpoint is shared with Unit 3 (Suggestions & Verification), as unit-of-work-dependency.md already says. Please correct it to Unit 3.
+
+2. Unit 6's definition of done: keep it to \"all 4 stories' acceptance criteria pass; no other unit depends on this unit\" and remove the clause about carrying no risk of blocking anyone else's work, since the dependency documents already describe this.
+
+After these fixes we will approve. As stated in the execution plan's Milestone Boundary, do not start Construction after approval."
+
+**AI Response**: "Applied both fixes to aidlc-docs/inception/application-design/unit-of-work.md. Fix 1: corrected Unit 2's api/facts.py note from 'shared endpoint with Unit 4' to 'shared endpoint with Unit 3', matching unit-of-work-dependency.md's matrix (Unit 2 depended on by Unit 3 for the facts endpoint) — this was a copy-paste labeling error, not a decomposition error; no other reference to this relationship was affected. Fix 2: trimmed Unit 6's definition of done to the two stated clauses, removing the redundant risk-framing clause now that unit-of-work-dependency.md already documents Unit 6 has no dependents. Confirmed: will not auto-start Construction after approval, per the Milestone Boundary already recorded in execution-plan.md and aidlc-state.md."
+**Context**: INCEPTION - Units Generation — corrections applied; re-presenting for approval
+
+---
+
+## Units Generation — Approved; INCEPTION Phase Complete (Mid-Semester Milestone)
+**Timestamp**: 2026-11-22T01:50:00Z
+**User Input**: "Approve & Continue. Both corrections are applied as we intended, and unit-of-work.md, unit-of-work-dependency.md, and unit-of-work-story-map.md are now consistent. As stated in the execution plan's Milestone Boundary, stop here. Do not start the Construction phase; we will start Construction in a separate session for the final project. Please make sure aidlc-state.md and audit.md record this approval and show the Inception phase as complete."
+**AI Response**: "Recorded explicit approval of Units Generation. Confirmed no further action is taken toward Construction, per the Milestone Boundary in execution-plan.md and aidlc-state.md. Updated aidlc-docs/aidlc-state.md: marked Units Generation complete/approved; marked the full INCEPTION PHASE checklist complete (Workspace Detection, Requirements Analysis, User Stories, Workflow Planning, Application Design, Units Generation — Reverse Engineering correctly remains skipped, greenfield); set Current Stage to reflect the mid-semester milestone is complete and the session is holding at the Milestone Boundary; left the CONSTRUCTION PHASE checklist entirely unchecked and untouched, ready for a future session to resume from this state file for the final project."
+**Context**: INCEPTION PHASE COMPLETE — mid-semester milestone delivered 2026-11-22 (ahead of the November 24, 2026 deadline). Workflow holds at the Milestone Boundary; CONSTRUCTION PHASE not entered.
+
+---

@@ -1,6 +1,6 @@
 # Requirements: Storywell
 
-**Status**: Awaiting user approval
+**Status**: Approved 2026-11-22 (change request of 2026-11-22 applied — see §15)
 **Stage**: INCEPTION — Requirements Analysis
 **Depth**: Comprehensive
 **Date**: 2026-11-22
@@ -136,8 +136,8 @@ subordinate to them. Derived from `vision.md` Section 6 "Product rules".
 | FR-212 | If the requirement list is changed after matching has run, matching shall run again on the updated list. | Q9 = A |
 | FR-220 | The system shall produce a `RequirementMatch` per requirement with status `found`, `needs_confirmation`, or `not_found`, plus the evidence IDs supporting it. | tech-env §5 |
 | FR-221 | **A requirement with only partial evidence shall be labelled `needs_confirmation`, not `found`**, and shall trigger a follow-up question about depth. | Q1 = B |
-| FR-222 | **`evidence_ids` may be non-empty for both `found` and `needs_confirmation`, and must be empty only for `not_found`.** The UI shall render the list as "evidence" for `found` and as "partial evidence" for `needs_confirmation`, displayed beside the follow-up question. | C3 = A |
-| FR-223 | The invariant "`status == not_found` implies `evidence_ids` is empty" shall be covered by a property-based test. | C3 = A |
+| FR-222 | **`evidence_ids` must be non-empty for `found`** (at least one evidence ID), **may be non-empty for `needs_confirmation`**, and must be empty only for `not_found`. The UI shall render the list as "evidence" for `found` and as "partial evidence" for `needs_confirmation`, displayed beside the follow-up question. | C3 = A, change request 2026-11-22 |
+| FR-223 | Two invariants shall each be covered by a property-based test: (1) "`status == not_found` implies `evidence_ids` is empty"; (2) **"`status == found` implies `evidence_ids` is non-empty."** | C3 = A, change request 2026-11-22 |
 | FR-224 | Every extracted requirement shall appear in the checklist with exactly one of the three statuses — no requirement may be silently omitted. | vision §4 |
 
 ### 5.3 Follow-Up Questions and Confirmed Facts (FR-3xx)
@@ -318,7 +318,7 @@ The original comment constrained `evidence_ids` to be "empty unless `found`". Th
 
 | Status | `evidence_ids` | UI label |
 |---|---|---|
-| `found` | may be non-empty | "evidence" |
+| `found` | **must be non-empty** (at least one ID; invariant, property-tested per FR-223 — changed 2026-11-22) | "evidence" |
 | `needs_confirmation` | **may be non-empty** (changed) | "partial evidence" |
 | `not_found` | **must be empty** (invariant, property-tested per FR-223) | — |
 
@@ -377,7 +377,7 @@ labelled for human reviewers and is not a rule, so no AI-DLC artifact cites that
 | Rule | Status | Application |
 |---|---|---|
 | PBT-02 Round-trip | **Enforced** | Pydantic model serialization round-trips |
-| PBT-03 Invariants | **Enforced** | Verification invariants: "a number copied from a source is never flagged"; "a suggestion identical to its source has no flags"; "`not_found` implies empty `evidence_ids`" (FR-223); "a proposed reorder is always an exact permutation of the entry's bullet IDs" (FR-504) |
+| PBT-03 Invariants | **Enforced** | Verification invariants: "a number copied from a source is never flagged"; "a suggestion identical to its source has no flags"; "`not_found` implies empty `evidence_ids`" (FR-223); "`found` implies non-empty `evidence_ids`" (FR-223, change request 2026-11-22); "a proposed reorder is always an exact permutation of the entry's bullet IDs" (FR-504) |
 | PBT-07 Generator quality | **Enforced** | Domain generators required for `ResumeItem`, `ConfirmedFact`, `RequirementMatch`, `Suggestion`, `ReorderSuggestion` — not raw primitives; centralized as reusable test utilities |
 | PBT-08 Shrinking and reproducibility | **Enforced, CI sub-requirement waived** (C1 = A) | Shrinking never disabled; Hypothesis prints the seed on every failure for replay. **Documented justification for the CI waiver**: no CI service in the MVP, per `technical-environment.md` Section 6. PBT-08's verification criteria permit exclusion from CI with documented justification |
 | PBT-09 Framework selection | **Enforced** | Hypothesis with pytest — matches PBT-09's recommended Python framework. Added as a dev dependency |
@@ -506,3 +506,16 @@ the original line as usable source material, in both the cover letter and the ex
 under PR-1.1 by virtue of being in the user's own resume, so using an un-rewritten line in the
 cover letter introduces no unverified content. FR-312 still holds: an unconfirmed JD
 requirement remains unusable.
+
+### 2026-11-22 — Change request after User Stories review (`found` evidence invariant)
+
+| # | Change | Requirements touched |
+|---|---|---|
+| 1 | **`found` now requires at least one evidence ID.** Previously `evidence_ids` only had to be non-empty "for `found` and `needs_confirmation`" without requiring it for `found` — a `found` match with zero evidence was not actually excluded. A `found` requirement with no evidence would mean the checklist asserts a match the user cannot see any support for, which the traceability rule (PR-1) requires every shown claim to have. | FR-222, FR-223 (new invariant), §7.1 table, §8.2 PBT-03 row |
+
+**Why this mattered**: a status of `found` is the strongest claim the checklist makes about a
+requirement — stronger than `needs_confirmation`. Leaving `evidence_ids` only "may be
+non-empty" for `found` meant the schema allowed the strongest claim to carry the weakest
+support. The fix adds the missing invariant symmetrically to the existing `not_found` one:
+`not_found` implies empty, `found` implies non-empty, both property-tested per FR-223.
+`needs_confirmation` is unchanged — it may or may not carry partial evidence, by design.

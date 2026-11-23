@@ -4,7 +4,10 @@
 - **Project Name**: Storywell
 - **Project Type**: Greenfield
 - **Start Date**: 2026-11-22T23:06:02Z
-- **Current Stage**: INCEPTION - Requirements Analysis (awaiting approval)
+- **Current Stage**: INCEPTION PHASE COMPLETE — holding at the Milestone Boundary (mid-semester
+  milestone delivered 2026-11-22, ahead of the Nov 24, 2026 deadline). CONSTRUCTION PHASE has
+  NOT been entered. A future session should resume here and begin with Functional Design for
+  Unit 1 (Foundation) only when the user explicitly starts Construction for the final project.
 - **Rule Details Directory**: `.aidlc-rule-details/`
 
 ## Workspace State
@@ -25,6 +28,17 @@ Per `README.md` "Team Members". All three use Claude Code.
 | Yunzhu Qiu | yq337 | AI Development Tools, Collaboration Plan & Documentation |
 
 Ownership of the five feature slices is deferred to Units Generation.
+
+## Course Deadlines and Milestone Boundary
+- **Mid-semester milestone (Nov 24, 2026)**: INCEPTION phase only, through Units Generation.
+- **Final project (Dec 16, 2026)**: CONSTRUCTION phase (per-unit Functional Design → Code
+  Generation, then Build and Test).
+- **CRITICAL**: This workflow must **stop after Units Generation is approved** and must NOT
+  automatically proceed into the CONSTRUCTION phase. Construction begins later, in a separate
+  session for the final project, started deliberately by the user. See
+  `aidlc-docs/inception/plans/execution-plan.md` "Milestone Boundary" section.
+- Units Generation must size the five feature slices so three developers can each build
+  their slice in about three weeks.
 
 ## Input Documents
 - `vision.md` — product vision for Storywell (problem, users, MVP scope in/out, product rules, risks)
@@ -84,7 +98,7 @@ stage; each skip is logged in `audit.md` per the conditional-enforcement require
 ### INCEPTION PHASE
 - [x] Workspace Detection — COMPLETED 2026-11-22T23:06:02Z (Greenfield)
 - [ ] Reverse Engineering — SKIPPED (greenfield; no existing codebase)
-- [x] Requirements Analysis — ARTIFACTS COMPLETE, awaiting user approval
+- [x] Requirements Analysis — COMPLETE, APPROVED 2026-11-22 (change request applied, see requirements.md §15)
   - [x] Intent analysis (clear / new project / system-wide / complex)
   - [x] Depth determination (comprehensive)
   - [x] Completeness analysis across all 6 mandated areas
@@ -95,14 +109,53 @@ stage; each skip is logged in `audit.md` per the conditional-enforcement require
   - [x] Re-validation after clarifications — no new conflicts
   - [x] `requirements.md` — 73 FRs, 39 NFRs, 11 product-rule clauses, 5 assumptions
   - [x] Change request from team review (5 changes) applied 2026-11-22 — see requirements.md §15
-- [ ] User Stories — WILL EXECUTE (assessment below)
-- [ ] Workflow Planning — pending
-- [ ] Application Design — not yet assessed
-- [ ] Units Generation — not yet assessed (decomposition approach captured in requirements §11)
+- [x] User Stories — COMPLETE, APPROVED 2026-11-22
+  - [x] Planning (Part 1): 8 questions answered, 1 clarification resolved, plan approved
+  - [x] Generation (Part 2): `personas.md` (3 personas) and `stories.md` (26 stories) created
+  - [x] Change request (6 items) applied 2026-11-22 — personas broadened with named scenarios;
+        US-SUGGEST-03/05 AC moved; FR-222/FR-223 evidence invariant added (requirements.md §15);
+        PR-2 criteria added to US-SUGGEST-01/US-COVER-01; US-FOUNDATION-03 and US-MATCH-01
+        wording/criteria fixes
+- [x] Workflow Planning — COMPLETE, APPROVED 2026-11-22
+  - [x] `aidlc-docs/inception/plans/execution-plan.md` created (risk: Medium; Mermaid +
+        text-alternative workflow visualization validated per content-validation.md)
+  - [x] Change request applied 2026-11-22 — Course Deadlines table (mid-semester milestone
+        Nov 24, 2026; final project Dec 16, 2026) and Milestone Boundary section added
+- [x] Application Design — COMPLETE, APPROVED 2026-11-22
+  - [x] `application-design-plan.md` — 6 questions answered, no ambiguity, no separate plan
+        approval gate (per application-design.md's process)
+  - [x] `components.md`, `component-methods.md`, `services.md`, `component-dependency.md`,
+        `application-design.md` created in `aidlc-docs/inception/application-design/`
+  - [x] FR-330 cross-slice dependency resolved: `services/shared.py::create_confirmed_fact()`,
+        owned by the Foundation unit
+- [x] Units Generation — COMPLETE, APPROVED 2026-11-22
+  - [x] Planning (Part 1): 2 questions answered, no blocking ambiguity, plan approved
+  - [x] Generation (Part 2): `unit-of-work.md`, `unit-of-work-dependency.md`,
+        `unit-of-work-story-map.md` created in `aidlc-docs/inception/application-design/`
+  - [x] 6 units defined — Foundation (Linghui Zhou, first), JD & Matching + Suggestions &
+        Verification (Xinyi Wang), Cover Letter + Resume Pipeline (Linghui Zhou), Export
+        (Yunzhu Qiu); workload asymmetry confirmed intentional/team-agreed
+  - [x] All 26 stories assigned, 1 unit each, no duplicates
+  - [x] Change request (2 corrections) applied 2026-11-22 — Unit 2's facts.py cross-reference
+        fixed to Unit 3 (was mislabeled Unit 4); Unit 6's definition of done trimmed to remove
+        a clause duplicated in unit-of-work-dependency.md
+
+**INCEPTION PHASE: ALL STAGES COMPLETE.** Mid-semester milestone delivered 2026-11-22.
 
 ### CONSTRUCTION PHASE
-- [ ] Per-Unit Loop — pending Units Generation
-- [ ] Build and Test — pending
+**NOT STARTED.** Per the Milestone Boundary (`execution-plan.md`), this phase is deliberately
+not entered in this session. It is documented below for the final project (due Dec 16, 2026)
+to resume from. Begin here only when the user explicitly starts Construction in a new session.
+
+*(Per-unit loop; one pass per unit, across the 6 units from `unit-of-work.md`: Foundation,
+JD & Matching, Suggestions & Verification, Cover Letter, Resume Pipeline, Export)*
+- [ ] Functional Design — **EXECUTE** (recommended, per unit)
+- [ ] NFR Requirements — **EXECUTE** (recommended, per unit)
+- [ ] NFR Design — **EXECUTE** (recommended, per unit)
+- [ ] Infrastructure Design — **SKIP** (recommended — no cloud/infra; local-only per
+      technical-environment.md)
+- [ ] Code Generation — EXECUTE (always, per unit)
+- [ ] Build and Test — EXECUTE (always, after all units complete)
 
 ### OPERATIONS PHASE
 - [ ] Operations — PLACEHOLDER
